@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  color: rgb(238, 183, 81);
+  background-color: rgb(44, 43, 43);
+  font-size: 25px;
+}
+.pagination {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50px;
+}
+.header-title {
+  margin-left: 15px;
+}
+.btn-next {
+  cursor: pointer;
+}
+.btn-prev {
+  cursor: pointer;
+}

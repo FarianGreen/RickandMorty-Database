@@ -1,0 +1,11 @@
+.row-column {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
+}
+.left-column{
+flex: 0 0 45%;
+}
+.right-column{
+
+}

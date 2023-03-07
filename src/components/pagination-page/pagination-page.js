@@ -1,0 +1,1 @@
+import "./paginationpage.css"
