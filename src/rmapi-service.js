@@ -58,6 +58,7 @@ class RMapiService {
       gender: character.gender,
       image: character.image,
       location: character.location.name,
+      origin: character.origin.name,
     };
   };
 }

@@ -5,6 +5,7 @@ import CharacterList from "../character-list/character-list";
 import RMapiService from "../../rmapi-service";
 import Header from "../header";
 import Row from "../row";
+import PaginationPage from "../pagination-page/pagination-page";
 
 class App extends React.Component {
   RMservice = new RMapiService();
@@ -27,11 +28,17 @@ class App extends React.Component {
     });
   };
 
+
+
   render() {
     return (
       <div>
-        <Header data={this.RMservice.getInfo} updatePage={this.updatePage} page={this.state.page} />
-        <Row
+        <Header
+          data={this.RMservice.getInfo}
+          updatePage={this.updatePage}
+          page={this.state.page}
+        />
+        {/* <Row
           left={
             <CharacterList
               getData={this.RMservice.getAllCharacters}
@@ -40,7 +47,9 @@ class App extends React.Component {
             />
           }
           right={<CharacterDetails charId={this.state.selectedCharacter} data={this.RMservice.getCharacter} />}
-        />
+        /> */}
+
+        <PaginationPage/>
       </div>
     );
   }

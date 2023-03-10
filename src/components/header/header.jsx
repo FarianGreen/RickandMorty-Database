@@ -18,7 +18,6 @@ const Header = (props) => {
 
     return data(page).then((info) => {
       setInfo(info);
-      console.log(info);
     });
   }
 
