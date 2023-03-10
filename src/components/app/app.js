@@ -6,6 +6,7 @@ import RMapiService from "../../rmapi-service";
 import Header from "../header";
 import Row from "../row";
 import PaginationPage from "../pagination-page/pagination-page";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 class App extends React.Component {
   RMservice = new RMapiService();
@@ -28,28 +29,28 @@ class App extends React.Component {
     });
   };
 
-
-
   render() {
     return (
       <div>
-        <Header
-          data={this.RMservice.getInfo}
-          updatePage={this.updatePage}
-          page={this.state.page}
-        />
-        {/* <Row
-          left={
-            <CharacterList
-              getData={this.RMservice.getAllCharacters}
-              onCharacterSelected={this.onCharacterSelected}
-              page={this.state.page}
+        <BrowserRouter>
+          <Header
+            data={this.RMservice.getInfo}
+            updatePage={this.updatePage}
+            page={this.state.page}
+          />
+          <Routes>
+            <Route path="/list" element={<PaginationPage onCharacterSelected={this.onCharacterSelected}/>} />
+            <Route
+              path="/details"
+              element={
+                <CharacterDetails
+                  charId={this.state.selectedCharacter}
+                  data={this.RMservice.getCharacter}
+                />
+              }
             />
-          }
-          right={<CharacterDetails charId={this.state.selectedCharacter} data={this.RMservice.getCharacter} />}
-        /> */}
-
-        <PaginationPage/>
+          </Routes>
+        </BrowserRouter>
       </div>
     );
   }

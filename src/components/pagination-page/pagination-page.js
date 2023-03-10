@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table, Tag } from "antd";
 import RMapiService from "../../rmapi-service";
+import "./pagination-page.css";
+import { Link } from "react-router-dom";
 
-const PaginationPage = () => {
+const PaginationPage = (props) => {
   const RMapi = new RMapiService();
 
   const [data, setData] = useState();
@@ -16,6 +18,7 @@ const PaginationPage = () => {
       dataIndex: "name",
       sorter: true,
       key: "1",
+      width: "15%",
     },
     {
       title: "Gender",
@@ -45,7 +48,20 @@ const PaginationPage = () => {
       ],
       onFilter: (value, item) => item.gender.includes(value),
 
-      width: "20%",
+      render: (tag) => {
+        const color = tag.includes("Male")
+          ? "blue"
+          : tag.includes("Female")
+          ? "pink"
+          : "rgb(171, 166, 166)";
+        return (
+          <Tag className="tag" color={color}>
+            {tag}
+          </Tag>
+        );
+      },
+
+      width: "15%",
       key: "2",
     },
     {
@@ -68,23 +84,43 @@ const PaginationPage = () => {
       onFilter: (value, item) => item.status.includes(value),
       render: (tag) => {
         const color = tag.includes("Alive")
-          ? "Green"
+          ? "green"
           : tag.includes("Dead")
           ? "red"
-          : "gray";
-        return <Tag color={color}>{tag}</Tag>;
+          : "rgb(171, 166, 166)";
+        return (
+          <Tag className="tag" color={color}>
+            {tag}
+          </Tag>
+        );
       },
+      width: "15%",
       key: "3",
     },
     {
       title: "Species",
       dataIndex: "species",
+      width: "15%",
       key: "4",
     },
     {
       title: "Origin",
       dataIndex: "origin",
+      width: "20%",
       key: "5",
+    },
+    {
+      title: "Details",
+      dataIndex: "details",
+      width: "20%",
+      key: "6",
+      render: (id=3) => {
+        return (
+          <Link to="/details">
+            <span className="material-symbols-outlined my-menu" onClick={() => props.onCharacterSelected(id)}>menu_open</span>
+          </Link>
+        );
+      },
     },
   ];
 
@@ -102,7 +138,7 @@ const PaginationPage = () => {
     );
     return setData(respData);
   }
-
+  
   return (
     <Table
       columns={columns}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./header.css";
 
 const Header = (props) => {
@@ -35,6 +36,12 @@ const Header = (props) => {
         <div className="btn-next" onClick={() => props.updatePage(info.next)}>
           (+){info.next}
         </div>
+      </div>
+      <div className="links-route">
+        <Link to="/details">Details</Link>
+      </div>
+      <div className="links-route">
+        <Link to="list">List</Link>
       </div>
     </div>
   );

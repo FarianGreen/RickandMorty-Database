@@ -1,0 +1,8 @@
+.tag {
+  width: 65px;
+  text-align: center;
+  border: 1px solid;
+}
+.my-menu {
+  cursor: pointer;
+}
