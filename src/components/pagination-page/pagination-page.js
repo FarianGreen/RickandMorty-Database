@@ -114,10 +114,10 @@ const PaginationPage = (props) => {
       dataIndex: "details",
       width: "20%",
       key: "6",
-      render: (id=3) => {
+      render: (_, record) => {
         return (
-          <Link to="/details">
-            <span className="material-symbols-outlined my-menu" onClick={() => props.onCharacterSelected(id)}>menu_open</span>
+          <Link to="/details" onClick={() => props.onCharacterSelected(record.id)}>
+            <span className="material-symbols-outlined my-menu">menu_open</span>
           </Link>
         );
       },
@@ -138,7 +138,7 @@ const PaginationPage = (props) => {
     );
     return setData(respData);
   }
-  
+
   return (
     <Table
       columns={columns}
