@@ -3,6 +3,13 @@ class RMapiService {
 
   getResource = async (url) => {
     const response = await fetch(`${this._apiBase}${url}`);
+
+    if (!response.ok) {
+      throw new Error(
+        `Could not fetch ${url}` + `, received ${response.status}`
+      );
+    }
+
     return await response.json();
   };
 
@@ -16,9 +23,9 @@ class RMapiService {
     return console.log(response.results);
   };
 
-  getEpisodes = async (numpage) => {
+  getAllEpisodes = async (numpage) => {
     const response = await this.getResource(`/episode/?page=${numpage}`);
-    return console.log(response.results);
+    return response.results.map(this._transformEpisode)
   };
 
   getCharacter = async (id) => {
@@ -59,6 +66,15 @@ class RMapiService {
       image: character.image,
       location: character.location.name,
       origin: character.origin.name,
+    };
+  };
+  _transformEpisode = (episodeInfo) => {
+    return {
+      id: episodeInfo.id,
+      name: episodeInfo.name,
+      airdate: episodeInfo.air_date,
+      episode: episodeInfo.episode,
+      characters: episodeInfo.characters,
     };
   };
 }

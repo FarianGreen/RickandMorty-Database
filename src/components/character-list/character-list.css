@@ -1,26 +1,14 @@
-.ul-items {
-  background-color: rgb(64, 63, 63);
-  padding: 5px 0 5px 0;
+.tag {
+  width: 65px;
+  text-align: center;
+  border: 1px solid;
 }
-.ul-items:hover .list-item {
-  opacity: 0.7;
-}
-
-.ul-items:hover .list-item:hover {
-  opacity: 1;
-}
-.list-item {
-  display: flex;
-  list-style: none;
+.my-menu {
   cursor: pointer;
-  margin: 10px;
-  padding-left: 10px;
-  height: 30px;
-  align-items: center;
-  background-color: rgb(79, 87, 104);
-  color: rgb(16, 233, 60);
-  transition: transform 0.5s;
 }
-.list-item:hover {
-  color: whitesmoke;
+.spin{
+  margin-left: 50%;
+}
+.table{
+  padding: 25px 45px 10px 45px;
 }

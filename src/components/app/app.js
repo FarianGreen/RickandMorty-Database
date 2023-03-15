@@ -1,18 +1,22 @@
 import React from "react";
 import "./app.css";
 import CharacterDetails from "../character-card";
-import CharacterList from "../character-list/character-list";
 import RMapiService from "../../rmapi-service";
 import Header from "../header";
-import Row from "../row";
-import PaginationPage from "../pagination-page/pagination-page";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ErrorBoundry from "../error-boundry";
+import StartPage from "../start-page";
+import CharacterList from "../character-list/character-list";
+
+const RMservice = new RMapiService();
+
+RMservice.getAllEpisodes();
 
 class App extends React.Component {
   RMservice = new RMapiService();
 
   state = {
-    selectedCharacter: 1,
+    selectedCharacter: null,
     page: 1,
     info: null,
   };
@@ -31,26 +35,41 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <BrowserRouter>
-          <Header
-            data={this.RMservice.getInfo}
-            updatePage={this.updatePage}
-            page={this.state.page}
-          />
-          <Routes>
-            <Route path="/list" element={<PaginationPage onCharacterSelected={this.onCharacterSelected}/>} />
-            <Route
-              path="/details"
-              element={
-                <CharacterDetails
-                  charId={this.state.selectedCharacter}
-                  data={this.RMservice.getCharacter}
-                />
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+      <div className="app">
+        <ErrorBoundry>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path="/" element={<StartPage />} />
+              <Route
+                path="list"
+                element={
+                  <CharacterList
+                    onCharacterSelected={this.onCharacterSelected}
+                  />
+                }
+              />
+              <Route
+                path="character"
+                element={
+                  <CharacterDetails
+                    charId={this.state.selectedCharacter}
+                    data={this.RMservice.getCharacter}
+                  />
+                }
+              />
+              <Route
+                path="character/:id"
+                element={
+                  <CharacterDetails
+                    charId={this.state.selectedCharacter}
+                    data={this.RMservice.getCharacter}
+                  />
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </ErrorBoundry>
       </div>
     );
   }

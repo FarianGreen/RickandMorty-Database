@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./character-card.css";
 
 const CharacterDetails = (props) => {
+  const {id} = useParams()
+
   const [character, setCharacter] = useState();
 
   useEffect(() => {
     upadateCharacter();
-  }, [props.charId]);
+  }, [props.charId || id]);
 
   function upadateCharacter() {
     const { charId, data } = props;
 
-    if (!charId) {
+    if (!charId && !id) {
       return <div>no Id</div>;
     }
 
-    data(charId).then((character) => {
+    data(charId || id).then((character) => {
       setCharacter(character);
     });
   }
