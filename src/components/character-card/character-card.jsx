@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./character-card.css";
 
 const CharacterDetails = (props) => {
-  const {id} = useParams()
+  const { id } = useParams();
 
   const [character, setCharacter] = useState();
 
@@ -27,29 +27,38 @@ const CharacterDetails = (props) => {
     return <div>no character</div>;
   }
 
-  const { image, name, status, location, gender } = character;
+  const { image, name, type, location, gender, status } = character;
+  const color = status.includes("Alive")
+    ? "green"
+    : status.includes("Dead")
+    ? "red"
+    : "rgb(171, 166, 166)";
   return (
-    <div className="card-box">
-      <div className="card-box__ImgWrapper">
-        <img src={image} alt="#" />
+    <div className="card">
+      <img src={image} className="" alt="#" />
+
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text">last seen:</p>
+        <p className="card-text">{location}</p>
       </div>
-      <div className="card-box__characterInfo">
-        <div className="character-name-status">
-          <span className="name">{name}</span>
-          <span className="status">
-            <span className="span-status">?</span> {status}
-          </span>
-        </div>
-        <div className="card-box__other-info">
-          <div className="last-location">
-            <span className="text-grey">Last known location: </span>
-            <span className="last-location__info">{location}</span>
-          </div>
-          <div className="first-seen">
-            <span className="text-grey">Gender: </span>
-            <span className="last-location__info">{gender}</span>
-          </div>
-        </div>
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item" color={color}>
+          Status: {status}
+        </li>
+        <li className="list-group-item">Gender: {gender}</li>
+        <li className="list-group-item">{type}</li>
+      </ul>
+      <div className="card-body">
+        <a href="#" class="card-link">
+          Card link
+        </a>
+        <a className="#" class="card-link">
+          <Link className="link-episode" to={`/episode_with_character/${id}`}>
+            <span>Episodes with character</span>
+            <span className="material-symbols-outlined my-menu">menu_open</span>
+          </Link>
+        </a>
       </div>
     </div>
   );

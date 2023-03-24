@@ -25,12 +25,31 @@ class RMapiService {
 
   getAllEpisodes = async (numpage) => {
     const response = await this.getResource(`/episode/?page=${numpage}`);
-    return response.results.map(this._transformEpisode)
+    return response.results.map(this._transformEpisode);
+  };
+
+  getSingleEpisode = async (id) => {
+    const response = await this.getResource(`/episode/${id}`);
+    return this._transformEpisode(response);
   };
 
   getCharacter = async (id) => {
     const character = await this.getResource(`/character/${id}`);
-    return this._transformCharacter(character);
+
+    if (character.length > 1) {
+      return character.map(this._transformCharacter);
+    } else {
+      return this._transformCharacter(character);
+    }
+  };
+
+  getCharacterEpisode = async (arr) => {
+    const response = await this.getResource(`/episode/${arr}`);
+    if (response.length > 1) {
+      return response.map(this._transformEpisode);
+    } else {
+      return this._transformEpisode(response);
+    }
   };
 
   getInfo = async (numpage) => {
@@ -43,7 +62,9 @@ class RMapiService {
       return;
     }
     const idRegExp = /([0-9]*)$/;
-    return item.match(idRegExp)[1];
+    return item.map((element) => {
+      return element.match(idRegExp)[1];
+    });
   };
 
   _transformInfo = (info) => {
@@ -66,6 +87,7 @@ class RMapiService {
       image: character.image,
       location: character.location.name,
       origin: character.origin.name,
+      episode: this._extractId(character.episode),
     };
   };
   _transformEpisode = (episodeInfo) => {
@@ -74,7 +96,7 @@ class RMapiService {
       name: episodeInfo.name,
       airdate: episodeInfo.air_date,
       episode: episodeInfo.episode,
-      characters: episodeInfo.characters,
+      characters: this._extractId(episodeInfo.characters),
     };
   };
 }

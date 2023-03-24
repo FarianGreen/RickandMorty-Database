@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
 import "./header.css";
+import logo from "../../img/logo.jpg";
 
-const Header = () => {
+const Header = ({ menuActive, setMenuActive }) => {
   return (
     <div className="header">
       <div className="header-title">
-        <Link to="/">Welcome to R&M database</Link>
+        <Link className="header-link" to="/">
+          <img src={logo} />
+        </Link>
       </div>
+      <nav className="nav-burger">
+        <div
+          className="burger-btn"
+          onClick={() => {
+            setMenuActive(!menuActive);
+          }}
+        >
+          <span className="material-symbols-outlined">menu</span>
+        </div>
+      </nav>
     </div>
   );
 };

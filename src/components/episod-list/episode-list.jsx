@@ -2,11 +2,13 @@ import "./episod-list.css";
 import React, { useEffect, useState } from "react";
 import { Table, Tag } from "antd";
 import RMapiService from "../../rmapi-service";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Spinner from "../spinner";
 
-const EpisodeList = () => {
+const EpisodeList = ({ charId }) => {
   const RMapi = new RMapiService();
+
+  const { id } = useParams();
 
   const [data, setData] = useState();
 
@@ -48,14 +50,14 @@ const EpisodeList = () => {
     },
     {
       key: "3",
-      title: "Characters",
-      dataIndex: "characters",
+      title: "Action",
+      dataIndex: "action",
       width: "20%",
       render: (_, record) => {
         return (
-          <li>
+          <Link to={`/characters_in_episode/${record.id}`}>
             <span className="material-symbols-outlined my-menu">menu_open</span>
-          </li>
+          </Link>
         );
       },
     },
@@ -63,17 +65,37 @@ const EpisodeList = () => {
 
   useEffect(() => {
     haveEpisodeData();
-  }, [page]);
+  }, [page, id, charId]);
 
   async function haveEpisodeData() {
-    if (!page) {
+    if (!page && !id && !charId) {
       return;
     }
 
-    const respData = await RMapi.getAllEpisodes(page).then((results) =>
-      results.map((item) => ({ ...item, key: item.id }))
-    );
-    return setData(respData);
+    if (charId || id) {
+      const response = await RMapi.getCharacter(charId || id).then(
+        (results) => {
+          return results.episode;
+        }
+      );
+
+      const dataEpisods = await RMapi.getCharacterEpisode(response).then(
+        (results) => {
+          if (results.length > 1) {
+            return results.map((item) => ({ ...item, key: item.id }));
+          } else return [results];
+        }
+      );
+
+      return setData(dataEpisods);
+    }
+
+    if (page) {
+      const respData = await RMapi.getAllEpisodes(page).then((results) =>
+        results.map((item) => ({ ...item, key: item.id }))
+      );
+      return setData(respData);
+    }
   }
 
   if (!data) {

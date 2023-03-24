@@ -4,7 +4,6 @@ import "./start-page.css";
 
 const StartPage = () => {
   return <div className="start-page">Weclome to DB
-  <EpisodeList/>
   </div>;
 };
 export default StartPage;

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Table, Tag } from "antd";
 import RMapiService from "../../rmapi-service";
 import "./character-list.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Spinner from "../spinner";
 
 const CharacterList = (props) => {
   const RMapi = new RMapiService();
+
+  const { id } = useParams();
 
   const [data, setData] = useState();
 
@@ -128,14 +130,28 @@ const CharacterList = (props) => {
     },
   ];
 
-
   useEffect(() => {
     haveData();
-  }, [page]);
+  }, [page, id]);
 
   async function haveData() {
-    if (!page) {
+    if (!page && !id) {
       return;
+    }
+
+    if (id) {
+      const response = await RMapi.getSingleEpisode(id).then((results) => {
+        return results.characters;
+      });
+
+      const dataCharactersInEpisod = await RMapi.getCharacter(response).then(
+        (results) => {
+          if (results.length > 1) {
+            return results.map((item) => ({ ...item, key: item.id }));
+          } else return [results];
+        }
+      );
+      return setData(dataCharactersInEpisod);
     }
 
     const respData = await RMapi.getAllCharacters(page).then((results) =>
@@ -145,10 +161,15 @@ const CharacterList = (props) => {
   }
 
   if (!data) {
-    return <div className="spin" ><Spinner /></div>;
+    return (
+      <div className="spin">
+        <Spinner />
+      </div>
+    );
   }
   return (
-    <Table className="table"
+    <Table
+      className="table"
       columns={columns}
       dataSource={data}
       pagination={{
