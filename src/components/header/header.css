@@ -8,10 +8,13 @@
   font-size: 25px;
   height: 68px;
 }
-.header-title {
-  width: auto;
-  height: 68px;
-  border: 1px solid white;
+.wrap__logo {
+  width: 200px;
+  margin-left: 10px;
+}
+.logo{
+  max-width: 100%;
+  padding-bottom: 20px;
 }
 .burger-btn span {
   cursor: pointer;

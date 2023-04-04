@@ -12,6 +12,8 @@ const EpisodeList = ({ charId }) => {
 
   const [data, setData] = useState();
 
+  const [countPages, setCountPages] = useState();
+
   const [page, setPage] = useState(1);
 
   const columns = [
@@ -67,34 +69,41 @@ const EpisodeList = ({ charId }) => {
     haveEpisodeData();
   }, [page, id, charId]);
 
+  async function dataExistIds() {
+    const response = await RMapi.getCharacter(charId || id).then((results) => {
+      setCountPages(results.episode);
+      return results.episode;
+    });
+
+    const dataEpisods = await RMapi.getCharacterEpisode(response).then(
+      (results) => {
+        if (results.length > 1) {
+          return results.map((item) => ({ ...item, key: item.id }));
+        } else return [results];
+      }
+    );
+    return setData(dataEpisods);
+  }
+
+  async function dataExistPage() {
+    const episodes = await RMapi.getAllEpisodes(page).then((response) => {
+      return response.results.map((item) => ({ ...item, key: item.id }));
+    });
+    const infoEpisodes = await RMapi.getAllEpisodes(page).then((response) => {
+      return response.info.count;
+    });
+    return setData(episodes), setCountPages(infoEpisodes);
+  }
+
   async function haveEpisodeData() {
-    if (!page && !id && !charId) {
-      return;
-    }
+    const isExistIds = Boolean(id) || Boolean(charId);
+    const isExistPage = Boolean(page);
 
-    if (charId || id) {
-      const response = await RMapi.getCharacter(charId || id).then(
-        (results) => {
-          return results.episode;
-        }
-      );
-
-      const dataEpisods = await RMapi.getCharacterEpisode(response).then(
-        (results) => {
-          if (results.length > 1) {
-            return results.map((item) => ({ ...item, key: item.id }));
-          } else return [results];
-        }
-      );
-
-      return setData(dataEpisods);
-    }
-
-    if (page) {
-      const respData = await RMapi.getAllEpisodes(page).then((results) =>
-        results.map((item) => ({ ...item, key: item.id }))
-      );
-      return setData(respData);
+    switch (true) {
+      case isExistIds:
+        return dataExistIds();
+      case isExistPage:
+        return dataExistPage();
     }
   }
 
@@ -113,12 +122,11 @@ const EpisodeList = ({ charId }) => {
       dataSource={data}
       pagination={{
         showSizeChanger: false,
-        current: page,
         pageSize: 20,
         onChange: (page) => {
           setPage(page);
         },
-        total: 51,
+        total: countPages,
       }}
     />
   );

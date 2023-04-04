@@ -10,6 +10,8 @@ const CharacterList = (props) => {
 
   const { id } = useParams();
 
+  const [countPages, setCountPages] = useState();
+
   const [data, setData] = useState();
 
   const [page, setPage] = useState(1);
@@ -134,30 +136,46 @@ const CharacterList = (props) => {
     haveData();
   }, [page, id]);
 
-  async function haveData() {
-    if (!page && !id) {
-      return;
-    }
+  async function dataExistIds() {
+    const response = await RMapi.getSingleEpisode(id).then((results) => {
+      setCountPages(results.characters);
+      return results.characters;
+    });
 
-    if (id) {
-      const response = await RMapi.getSingleEpisode(id).then((results) => {
-        return results.characters;
-      });
-
-      const dataCharactersInEpisod = await RMapi.getCharacter(response).then(
-        (results) => {
-          if (results.length > 1) {
-            return results.map((item) => ({ ...item, key: item.id }));
-          } else return [results];
-        }
-      );
-      return setData(dataCharactersInEpisod);
-    }
-
-    const respData = await RMapi.getAllCharacters(page).then((results) =>
-      results.map((item) => ({ ...item, key: item.id }))
+    const dataCharactersInEpisod = await RMapi.getCharacter(response).then(
+      (results) => {
+        if (results.length > 1) {
+          return results.map((item) => ({ ...item, key: item.id }));
+        } else return [results];
+      }
     );
-    return setData(respData);
+    return setData(dataCharactersInEpisod);
+  }
+
+  async function dataExistPage() {
+    const charactersList = await RMapi.getAllCharacters(page).then(
+      (response) => {
+        return response.results.map((item) => ({ ...item, key: item.id }));
+      }
+    );
+    const infoCharacters = await RMapi.getAllCharacters(page).then(
+      (response) => {
+        return response.info;
+      }
+    );
+    return setData(charactersList), setCountPages(infoCharacters.count);
+  }
+
+  async function haveData() {
+    const isExistId = Boolean(id);
+    const isExistPage = Boolean(page);
+
+    switch (true) {
+      case isExistId:
+      return  dataExistIds();
+      case isExistPage:
+      return  dataExistPage();
+    }
   }
 
   if (!data) {
@@ -179,7 +197,7 @@ const CharacterList = (props) => {
         onChange: (page) => {
           setPage(page);
         },
-        total: 826,
+        total: countPages,
       }}
     />
   );

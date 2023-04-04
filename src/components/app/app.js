@@ -9,7 +9,7 @@ import StartPage from "../start-page";
 import CharacterList from "../character-list/character-list";
 import Menu from "../menu/menu";
 import EpisodeList from "../episod-list";
-import Row from "../row";
+import MountingScript from "../menu/logick";
 
 const App = () => {
   const RMservice = new RMapiService();
@@ -27,16 +27,19 @@ const App = () => {
       id: 1,
       value: "Character List",
       href: "/list",
+      icon: "settings_accessibility",
     },
     {
       id: 2,
       value: "List of episodes",
       href: "/episode",
+      icon: "density_small",
     },
     {
       id: 3,
       value: "Home page",
       href: "/",
+      icon: "home",
     },
   ];
   return (
@@ -91,6 +94,7 @@ const App = () => {
             items={items}
           />
         </BrowserRouter>
+        <MountingScript/>
       </ErrorBoundry>
     </div>
   );

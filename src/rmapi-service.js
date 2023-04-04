@@ -15,17 +15,21 @@ class RMapiService {
 
   getAllCharacters = async (numpage) => {
     const response = await this.getResource(`/character/?page=${numpage}`);
-    return response.results.map(this._transformCharacter);
-  };
-
-  getLocations = async (numpage) => {
-    const response = await this.getResource(`/location/?page=${numpage}`);
-    return console.log(response.results);
+    const dataCharacters = {
+      info: response.info,
+      results: response.results.map(this._transformCharacter),
+    };
+    return dataCharacters;
   };
 
   getAllEpisodes = async (numpage) => {
     const response = await this.getResource(`/episode/?page=${numpage}`);
-    return response.results.map(this._transformEpisode);
+    const dataEpisode = {
+      info: response.info,
+      results: response.results.map(this._transformEpisode),
+    };
+
+    return dataEpisode;
   };
 
   getSingleEpisode = async (id) => {
@@ -88,6 +92,8 @@ class RMapiService {
       location: character.location.name,
       origin: character.origin.name,
       episode: this._extractId(character.episode),
+      url: character.url,
+      created: character.created,
     };
   };
   _transformEpisode = (episodeInfo) => {
@@ -97,6 +103,8 @@ class RMapiService {
       airdate: episodeInfo.air_date,
       episode: episodeInfo.episode,
       characters: this._extractId(episodeInfo.characters),
+      url: episodeInfo.url,
+      created: episodeInfo.created,
     };
   };
 }

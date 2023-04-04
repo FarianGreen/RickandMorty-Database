@@ -1,23 +1,56 @@
+.wrapper__card {
+  display: flex;
+  justify-content: center;
+}
 .card {
   border-radius: 4px;
   width: 18rem;
-  margin: 10px;
   border-radius: 18px;
   overflow: hidden;
 }
 .card-link a {
- display: flex;
- align-items: center;
- justify-content: space-between;
- list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
 }
-.link-episode{
+.link-episode {
   text-decoration: none;
 }
-.card-link{
+.card-link {
   text-decoration: none;
 }
 .card-link + .card-link {
   margin-left: 0;
   text-decoration: none;
+}
+.green {
+  color: green;
+  border: 1px solid green;
+  padding: 3px;
+}
+.red {
+  color: brown;
+  border: 1px solid brown;
+  padding: 3px;
+}
+.gray {
+  color: rgb(70, 68, 68);
+  border: 1px solid rgb(0, 0, 0);
+  padding: 3px;
+}
+.male {
+  color: rgb(100, 100, 223);
+  border: 1px solid rgb(100, 100, 223);
+  padding: 3px;
+}
+.female {
+  color: pink;
+  border: 1px solid pink;
+  padding: 3px;
+}
+.unknown {
+  color: gray;
+  border: 1px solid gray;
+  padding: 3px;
 }

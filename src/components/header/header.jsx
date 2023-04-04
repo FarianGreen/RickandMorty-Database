@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import "./header.css";
-import logo from "../../img/logo.jpg";
+import Rick_and_Morty_logo from "../../img/Rick_and_Morty_logo.png";
 
 const Header = ({ menuActive, setMenuActive }) => {
   return (
     <div className="header">
-      <div className="header-title">
+      <div className="wrap__logo">
         <Link className="header-link" to="/">
-          <img src={logo} />
+          <img src={Rick_and_Morty_logo} className="logo" />
         </Link>
       </div>
       <nav className="nav-burger">

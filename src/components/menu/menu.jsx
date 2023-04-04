@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./menu.css";
+import "./menu.scss";
 
 const Menu = ({ header, items, active, setActive }) => {
   return (
@@ -8,11 +8,17 @@ const Menu = ({ header, items, active, setActive }) => {
       <div className="blur" />
       <div className="menu__content">
         <div className="menu__header">{header}</div>
-        <ul className="menu__ul">
-          {items.map((item) => {
-            return <Link key={item.id} to={item.href} onClick={()=>{setActive(false)}}>{item.value}</Link>;
-          })}
-        </ul>
+        <nav class="nav">
+          <ul>
+            {items.map((item) => {
+              return (
+                <li key={item.id} onClick={()=>{setActive(false)}}>
+                  <Link to={item.href}>{item.value}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
     </div>
   );
