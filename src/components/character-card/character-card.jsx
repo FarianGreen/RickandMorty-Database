@@ -29,16 +29,16 @@ const CharacterDetails = (props) => {
 
   const { image, name, type, location, gender, status } = character;
   const color = status.includes("Alive")
-    ? "green"
+    ? "card-tag green"
     : status.includes("Dead")
-    ? "red"
-    : "gray";
+    ? " card-tag red"
+    : "card-tag gray";
 
   const sex = gender.includes("Male")
-    ? "male"
+    ? " card-tag male"
     : gender.includes("Female")
-    ? "female"
-    : "unknown";
+    ? "card-tag female"
+    : "card-tag unknown";
   return (
     <div className="wrapper__card">
       <div className="card">
@@ -49,16 +49,18 @@ const CharacterDetails = (props) => {
 
           <div className="card-body">
             <h5 className="card-title">{name}</h5>
-            <span className="card-text">last seen:</span>
+            <strong className="card-text">last seen:</strong>
             <br />
             <span className="card-text">{location}</span>
           </div>
           <ul className="m-list">
             <li className="m-list__item">
-              <strong>Status: </strong><span className={color}>{status}</span>
+              <strong>Status: </strong>
+              <span className={color}>{status}</span>
             </li>
             <li className="m-list__item">
-              <strong>Gender: </strong><span className={sex}>{gender}</span>
+              <strong>Gender: </strong>
+              <span className={sex}>{gender}</span>
             </li>
             <li className="m-list__item">{type}</li>
           </ul>

@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  justify-content: space-around;
   align-items: center;
   gap: 30px;
   background-color: rgb(35, 30, 30);

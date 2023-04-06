@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 18rem;
+  width: 320px;
   margin-top: 120px;
   border-radius: 18px;
   overflow: hidden;
@@ -17,38 +17,41 @@
   -moz-box-shadow: 14px 5px 17px 6px rgba(130, 136, 130, 1);
   box-shadow: 14px 5px 17px 6px rgba(130, 136, 130, 1);
 }
+.card-body {
+  padding: 10px 0 10px 10px;
+}
 
 .card::before {
   position: absolute;
   content: "";
   width: 9rem;
   height: 140%;
-  background:linear-gradient(#006eff,#60f901);
+  background: linear-gradient(#006eff, #60f901);
   box-shadow: 0 0 6px rgba(36, 187, 36, 1);
   animation: animate 4s linear infinite;
 }
-.card::after{
+.card::after {
   content: "";
   position: absolute;
   background-color: #fff;
   inset: 5px;
 }
-.card__content{
+.card__content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 1;
 }
-.div-with-img{
+.div-with-img {
   margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
-  width: 280px;
+  width: 300px;
   height: 280px;
   overflow: hidden;
   border-radius: 10px;
 }
-.div-with-img img{
+.div-with-img img {
   object-fit: cover;
   object-position: center;
 }
@@ -57,16 +60,16 @@
     transform: rotate(0deg);
   }
 
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }
-.m-list{
-  padding-left: 1rem;
+.m-list {
+  padding-left: 0;
   margin-bottom: 0;
   list-style: none;
 }
-.m-list__item{
+.m-list__item {
   padding: 9px;
 }
 .card-link a {
@@ -85,45 +88,30 @@
   margin-left: 0;
   text-decoration: none;
 }
+.card-tag {
+  margin-right: 5px;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid white;
+  border-radius: 16px;
+  color: #fff;
+}
 .green {
-  color: green;
-  border: 1px solid green;
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 0px 5px 5px -5px green inset;
+  background: rgb(15, 170, 15);
 }
 .red {
-  color: brown;
-  border: 1px solid brown;
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 0px 5px 5px -5px rgb(0, 0, 0) inset;
+  background: brown;
 }
 .gray {
-  color: rgb(70, 68, 68);
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 0px 5px 5px -5px rgb(0, 0, 0) inset;
+  background: rgb(70, 68, 68);
 }
 .male {
-  color: rgb(100, 100, 223);
-  border: 1px solid rgb(100, 100, 223);
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 0px 5px 5px -5px rgb(100, 100, 223) inset;
+  background: rgb(100, 100, 223);
 }
 .female {
-  color: pink;
-  border: 1px solid pink;
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 0px 5px 5px -5px pink inset;
+  background: pink;
 }
 .unknown {
-  color: gray;
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 3px;
-  box-shadow: 0px 5px 5px -5px gray inset;
+  background: gray;
 }
