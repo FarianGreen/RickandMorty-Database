@@ -25,28 +25,28 @@ const App = () => {
   const items = [
     {
       id: 1,
-      value: "Character List",
+      value: "Home",
+      href: "/",
+      icon: "home",
+    },
+    {
+      id: 2,
+      value: "Characters List",
       href: "/list",
       icon: "settings_accessibility",
     },
     {
-      id: 2,
-      value: "List of episodes",
+      id: 3,
+      value: "Episodes",
       href: "/episode",
       icon: "density_small",
-    },
-    {
-      id: 3,
-      value: "Home page",
-      href: "/",
-      icon: "home",
     },
   ];
   return (
     <div className="app">
       <ErrorBoundry>
         <BrowserRouter>
-          <Header menuActive={menuActive} setMenuActive={setMenuActive} />
+          <Header menuActive={menuActive} setMenuActive={setMenuActive} items={items}/>
           <Routes>
             <Route path="/" element={<StartPage />} />
             <Route path="/episode" element={<EpisodeList />} />
@@ -87,12 +87,6 @@ const App = () => {
               }
             />
           </Routes>
-          <Menu
-            active={menuActive}
-            setActive={setMenuActive}
-            header={"Menu"}
-            items={items}
-          />
         </BrowserRouter>
         <MountingScript/>
       </ErrorBoundry>

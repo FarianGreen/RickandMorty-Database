@@ -172,9 +172,9 @@ const CharacterList = (props) => {
 
     switch (true) {
       case isExistId:
-      return  dataExistIds();
+        return dataExistIds();
       case isExistPage:
-      return  dataExistPage();
+        return dataExistPage();
     }
   }
 
@@ -186,20 +186,22 @@ const CharacterList = (props) => {
     );
   }
   return (
-    <Table
-      className="table"
-      columns={columns}
-      dataSource={data}
-      pagination={{
-        showSizeChanger: false,
-        current: page,
-        pageSize: 20,
-        onChange: (page) => {
-          setPage(page);
-        },
-        total: countPages,
-      }}
-    />
+    <div className="wrapper__table">
+      <Table
+        className="table"
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          showSizeChanger: false,
+          current: page,
+          pageSize: 20,
+          onChange: (page) => {
+            setPage(page);
+          },
+          total: countPages,
+        }}
+      />
+    </div>
   );
 };
 export default CharacterList;

@@ -6,9 +6,23 @@
 .my-menu {
   cursor: pointer;
 }
-.spin{
+.spin {
   margin-left: 50%;
 }
-.table{
-  padding: 25px 45px 10px 45px;
+.table {
+  margin-top: 5%;
+  padding: 0 45px 10px 45px;
+  min-width: 700px;
+}
+.wrapper__table {
+  min-width: 700px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .table {
+    padding: 35px;
+  }
 }

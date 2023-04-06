@@ -1,12 +1,74 @@
 .wrapper__card {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 .card {
-  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   width: 18rem;
+  height: 600px;
+  margin-top: 120px;
   border-radius: 18px;
   overflow: hidden;
+  background-color: #fff;
+  -webkit-box-shadow: 14px 5px 17px 6px rgba(130, 136, 130, 1);
+  -moz-box-shadow: 14px 5px 17px 6px rgba(130, 136, 130, 1);
+  box-shadow: 14px 5px 17px 6px rgba(130, 136, 130, 1);
+}
+
+.card::before {
+  position: absolute;
+  content: "";
+  width: 9rem;
+  height: 140%;
+  background:linear-gradient(#006eff,#60f901);
+  box-shadow: 0 0 6px rgba(36, 187, 36, 1);
+  animation: animate 4s linear infinite;
+}
+.card::after{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  inset: 5px;
+}
+.card__content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+.div-with-img{
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 280px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.div-with-img img{
+  object-fit: cover;
+  object-position: center;
+}
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100%{
+    transform: rotate(360deg);
+  }
+}
+.m-list{
+  padding-left: 1rem;
+  margin-bottom: 0;
+  list-style: none;
+}
+.m-list__item{
+  padding: 9px;
 }
 .card-link a {
   display: flex;
@@ -27,30 +89,42 @@
 .green {
   color: green;
   border: 1px solid green;
+  border-radius: 10px;
   padding: 3px;
+  box-shadow: 0px 5px 5px -5px green inset;
 }
 .red {
   color: brown;
   border: 1px solid brown;
+  border-radius: 10px;
   padding: 3px;
+  box-shadow: 0px 5px 5px -5px rgb(0, 0, 0) inset;
 }
 .gray {
   color: rgb(70, 68, 68);
   border: 1px solid rgb(0, 0, 0);
+  border-radius: 10px;
   padding: 3px;
+  box-shadow: 0px 5px 5px -5px rgb(0, 0, 0) inset;
 }
 .male {
   color: rgb(100, 100, 223);
   border: 1px solid rgb(100, 100, 223);
+  border-radius: 10px;
   padding: 3px;
+  box-shadow: 0px 5px 5px -5px rgb(100, 100, 223) inset;
 }
 .female {
   color: pink;
   border: 1px solid pink;
+  border-radius: 10px;
   padding: 3px;
+  box-shadow: 0px 5px 5px -5px pink inset;
 }
 .unknown {
   color: gray;
   border: 1px solid gray;
+  border-radius: 10px;
   padding: 3px;
+  box-shadow: 0px 5px 5px -5px gray inset;
 }

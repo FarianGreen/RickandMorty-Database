@@ -116,19 +116,21 @@ const EpisodeList = ({ charId }) => {
   }
 
   return (
-    <Table
-      className="table"
-      columns={columns}
-      dataSource={data}
-      pagination={{
-        showSizeChanger: false,
-        pageSize: 20,
-        onChange: (page) => {
-          setPage(page);
-        },
-        total: countPages,
-      }}
-    />
+    <div className="wrapper__table">
+      <Table
+        className="table"
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          showSizeChanger: false,
+          pageSize: 20,
+          onChange: (page) => {
+            setPage(page);
+          },
+          total: countPages,
+        }}
+      />
+    </div>
   );
 };
 export default EpisodeList;
