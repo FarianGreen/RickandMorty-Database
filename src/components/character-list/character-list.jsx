@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Table, Tag } from "antd";
-import RMapiService from "../../rmapi-service";
 import "./character-list.css";
 import { Link, useParams } from "react-router-dom";
 import Spinner from "../spinner";
+import { useCharacterList } from "../hooks/useCharactersList";
 
 const CharacterList = (props) => {
-  const RMapi = new RMapiService();
-
   const { id } = useParams();
-
-  const [countPages, setCountPages] = useState();
-
-  const [data, setData] = useState();
-
   const [page, setPage] = useState(1);
+
+  const { data, countPages } = useCharacterList(id, page);
 
   const columns = [
     { key: "0", title: "ID", dataIndex: "id" },
@@ -131,52 +126,6 @@ const CharacterList = (props) => {
       },
     },
   ];
-
-  useEffect(() => {
-    haveData();
-  }, [page, id]);
-
-  async function dataExistIds() {
-    const response = await RMapi.getSingleEpisode(id).then((results) => {
-      setCountPages(results.characters);
-      return results.characters;
-    });
-
-    const dataCharactersInEpisod = await RMapi.getCharacter(response).then(
-      (results) => {
-        if (results.length > 1) {
-          return results.map((item) => ({ ...item, key: item.id }));
-        } else return [results];
-      }
-    );
-    return setData(dataCharactersInEpisod);
-  }
-
-  async function dataExistPage() {
-    const charactersList = await RMapi.getAllCharacters(page).then(
-      (response) => {
-        return response.results.map((item) => ({ ...item, key: item.id }));
-      }
-    );
-    const infoCharacters = await RMapi.getAllCharacters(page).then(
-      (response) => {
-        return response.info;
-      }
-    );
-    return setData(charactersList), setCountPages(infoCharacters.count);
-  }
-
-  async function haveData() {
-    const isExistId = Boolean(id);
-    const isExistPage = Boolean(page);
-
-    switch (true) {
-      case isExistId:
-        return dataExistIds();
-      case isExistPage:
-        return dataExistPage();
-    }
-  }
 
   if (!data) {
     return (

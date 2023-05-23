@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ErrorBoundry from "../error-boundry";
 import StartPage from "../start-page";
 import CharacterList from "../character-list/character-list";
-import Menu from "../menu/menu";
 import EpisodeList from "../episod-list";
 import MountingScript from "../menu/logick";
 
@@ -15,7 +14,6 @@ const App = () => {
   const RMservice = new RMapiService();
 
   const [characterId, setCharacterId] = useState();
-  const [page, setPage] = useState(1);
   const [menuActive, setMenuActive] = useState(false);
 
   const onCharacterSelected = (characterId) => {
